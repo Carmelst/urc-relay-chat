@@ -5,10 +5,15 @@
     margin-right: auto;
     background : whitesmoke;
     border-radius: 15px;
+    border: 1px solid white;
 }
 .conversation {
-    height: 85%;
+    max-height: 85%;
     overflow: auto;
+    scroll-behavior: auto;
+    background-color: #f9f9f9; /* Fond clair */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .message {

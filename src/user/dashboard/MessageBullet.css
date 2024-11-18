@@ -1,3 +1,14 @@
+.discussion {
+        display: flex;
+        flex-direction: column; /* Stacks messages vertically */
+        gap: 10px; /* Space between each message */
+        padding: 15px; /* Padding around the chat area */
+        overflow: auto;
+        width: 100%; /* Full width */
+        box-sizing: border-box; /* Includes padding in width/height calculation */
+        height:100%;
+}
+
 /* General styling for the message bullet */
 .message-bullet {
     max-width: 70%; /* Limits the width to make it look like a chat bubble */
@@ -15,7 +26,7 @@
 
 /* Alignment for sent messages (right) */
 .message-bullet.sent {
-    background-color: #0078d4; /* Blue for sender */
+    background-color: #007bff; /* Blue for sender */
     color: #fff; /* White text */
     align-self: flex-end; /* Pushes the bubble to the right */
     border-top-right-radius: 0; /* Optional: Removes top-right corner rounding */
@@ -35,4 +46,3 @@
     text-decoration: underline; /* Underline for clarity */
 }
 
-/* Hover
