@@ -1,0 +1,6 @@
+
+.register-page {
+    flex-grow: 1; /* Allows the landing section to grow and fill the space */
+    padding: 1rem;
+    background-color: #f0f4f8;
+}

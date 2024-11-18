@@ -1,29 +1,17 @@
-/* Center the card within the viewport */
+/* Ensure the landing container fills the full height of the viewport */
 .landing {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 2rem;
-    background-color: #f0f4f8; /* Soft background for a professional look */
+    flex-grow: 1; /* Allows the landing section to grow and fill the space */
+    padding: 1rem;
+    background-color: #f0f4f8;
 }
 
-Card{
-    width: 400px;
+/* Style for the Card component */
+.chakra-card {
+    margin-top: 100px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
     height: 300px;
-}
-/* Ensure CardFooter centers the ButtonGroup */
-CardFooter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
+    text-align: center;
 }
 
-/* Center buttons within the ButtonGroup */
-ButtonGroup {
-    display: flex;
-    justify-content: center;
-    width: 100%; /* Takes full width of the footer */
-    gap: 1rem; /* Spaces out buttons */
-}

@@ -1,0 +1,86 @@
+.userlist {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Espace entre chaque utilisateur */
+    padding: 1rem; /* Espacement interne */
+    background-color: #f9f9f9; /* Couleur de fond douce */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Légère ombre pour un effet de carte */
+    width: 100%; /* Prendre toute la largeur du parent */
+    margin: 1rem 0; /* Espacement horizontal entre les éléments */
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 85%;
+    scrollbar-width: thin; /* Firefox: use thin scrollbar */
+    scrollbar-color: rgba(0, 123, 255, 0.5) #f0f0f0; /* Firefox: color customization */
+}
+
+/* Scrollbar styles for Webkit-based browsers (Chrome, Edge, Safari) */
+.userlist::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+    background-color: #f0f0f0; /* Background of the scrollbar track */
+}
+
+.userlist::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 123, 255, 0.5); /* Color of the scrollbar handle */
+    border-radius: 4px; /* Rounded corners for the handle */
+}
+
+.userlist::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 123, 255, 0.8); /* Darker color on hover */
+}
+
+.userlist::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Background of the scrollbar track */
+    border-radius: 4px; /* Rounded corners for the track */
+}
+
+/* Style pour chaque utilisateur */
+.userlist > div {
+    display: flex;
+    justify-content: space-between; /* Espacer le nom et la dernière connexion */
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #ffffff; /* Fond blanc pour chaque ligne */
+    border: 1px solid #e0e0e0; /* Bordure légère */
+    border-radius: 4px; /* Coins légèrement arrondis */
+    transition: background-color 0.3s; /* Animation pour l'effet hover */
+}
+
+/* Texte pour le nom d'utilisateur */
+.userlist > div > span:first-child {
+    font-weight: bold; /* Mettre en valeur le nom d'utilisateur */
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Texte pour la dernière connexion */
+.userlist > div > span:last-child {
+    font-size: 0.875rem; /* Taille légèrement plus petite */
+    color: #666; /* Couleur plus douce pour indiquer une importance secondaire */
+}
+
+/* Effet hover pour chaque utilisateur */
+.userlist > div:hover {
+    background-color: #f0f4f8; /* Fond plus clair au survol */
+    cursor: pointer; /* Indicateur de clic */
+}
+
+.userlist > div.active {
+    background-color: #f0f4f8; /* Same as hover color */
+    border: 1px solid #0078d4; /* Highlight border for active item */
+    box-shadow: 0 0 8px rgba(0, 120, 212, 0.2); /* Subtle glow */
+}
+
+
+/* Responsive: Étendre la liste sur des écrans étroits */
+@media (max-width: 500px) {
+    .userlist {
+        padding: 0.5rem;
+    }
+
+    .userlist > div {
+        flex-direction: column; /* Organiser en colonne */
+        align-items: flex-start; /* Alignement à gauche */
+        gap: 0.5rem;
+    }
+}

@@ -3,7 +3,6 @@ import {
   Image,
   Card,
   ButtonGroup,
-  Divider,
   CardBody,
   Heading,
   Stack,
@@ -16,7 +15,7 @@ import './Landing.css';
 export function Landing() {
   return (
     <div className="landing">
-      <Card maxW="md" align='center'>
+      <Card maxW="md" maxH="300px" align='center'>
         <CardBody>
           <Image
             src=""
@@ -31,7 +30,6 @@ export function Landing() {
             </Text>
           </Stack>
         </CardBody>
-        <Divider />
         <CardFooter>
           <ButtonGroup spacing="3">
             <Link to="/login">

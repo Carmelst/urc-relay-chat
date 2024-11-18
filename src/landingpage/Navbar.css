@@ -1,0 +1,11 @@
+.Navbar Button{
+    border: 1px solid white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.Navbar Button:hover{
+    background-color: white;
+    color: black;
+    box-shadow: 2px 2px 5px white;
+}

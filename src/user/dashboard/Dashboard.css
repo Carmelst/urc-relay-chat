@@ -1,0 +1,94 @@
+/* Overall layout for the dashboard */
+.dashboard {
+    display: flex; /* Side-by-side layout */
+    height: 80%; /* Full viewport height */
+    margin: 50px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+/* Dashboard left area (aside) - set width to 30% */
+.dashboard-left {
+    width: 30%; /* Now 30% of the page width */
+    height: 100%;
+    background-color: #1a202c; /* Dark background for the sidebar */
+    padding: 20px 20px 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Dashboard navbar header - make the buttons align horizontally */
+.dashboard-navbar-header {
+    display: flex;
+    flex-direction: row; /* Align buttons horizontally */
+    justify-content: space-between; /* Space out the buttons */
+    align-items: center; /* Center the buttons vertically */
+
+}
+
+/* Button styling inside the navbar */
+.dashboard-navbar-header button {
+    margin-right: 15px; /* Space between buttons */
+    letter-spacing: 0.5px;
+    width: auto; /* Set width to auto to fit the button content */
+    padding: 12px 15px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.dashboard-navbar-header button.active {
+    background-color: #007bff; /* Active button color */
+    border-color: #007bff;
+}
+
+/* Hover effect for buttons */
+.dashboard-navbar-header button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+
+/* Dashboard navbar main content area */
+/* Ensure dashboard navbar main takes the full width */
+.dashboard-navbar-main {
+    flex-grow: 1;  /* This will make the element grow to take available space */
+    width: 100%;
+}
+
+
+/* Styling for the right-side main content */
+.dashboard-main {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #edf2f7;
+    overflow-y: auto;
+}
+
+/* Optional: Add some padding and margin for the content inside lists */
+.userlist, .saloonlist {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.userlist div, .saloonlist div {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.userlist span, .saloonlist span {
+    font-size: 16px;
+    color: #2d3748;
+}
+
+.userlist .last-login, .saloonlist .last-login {
+    font-size: 14px;
+    color: #4a5568;
+}

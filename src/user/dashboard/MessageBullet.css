@@ -1,0 +1,38 @@
+/* General styling for the message bullet */
+.message-bullet {
+    max-width: 70%; /* Limits the width to make it look like a chat bubble */
+    padding: 10px 15px; /* Padding inside the bubble */
+    margin: 10px; /* Space around the bubble */
+    background-color: #0078d4; /* Default blue background for a message */
+    color: #fff; /* White text for contrast */
+    font-size: 0.9rem; /* Slightly smaller text */
+    line-height: 1.5; /* Comfortable line height */
+    border-radius: 15px; /* Round corners to create a bubble shape */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+    word-wrap: break-word; /* Ensures text wraps within the bubble */
+    overflow: hidden; /* Prevents content overflow */
+}
+
+/* Alignment for sent messages (right) */
+.message-bullet.sent {
+    background-color: #0078d4; /* Blue for sender */
+    color: #fff; /* White text */
+    align-self: flex-end; /* Pushes the bubble to the right */
+    border-top-right-radius: 0; /* Optional: Removes top-right corner rounding */
+}
+
+/* Alignment for received messages (left) */
+.message-bullet.received {
+    background-color: #f1f1f1; /* Light gray for receiver */
+    color: #333; /* Dark text for readability */
+    align-self: flex-start; /* Pushes the bubble to the left */
+    border-top-left-radius: 0; /* Optional: Removes top-left corner rounding */
+}
+
+/* Styling for text links inside the message */
+.message-bullet a {
+    color: #ffdd57; /* Highlighted color for links */
+    text-decoration: underline; /* Underline for clarity */
+}
+
+/* Hover
