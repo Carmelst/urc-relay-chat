@@ -6,8 +6,7 @@ export const getUsersAsync = createAsyncThunk(
     'user/getUsers',
     async (token: string) => {
         try {
-            const users = await getUsers(token);
-            return users ;
+            return await getUsers(token);
         }
         catch (error) {
             console.error(error);
@@ -20,22 +19,23 @@ const userSlice = createSlice({
     name : 'user',
     initialState : {
         users : [] as UserUI[],
-        token : '',
-        username : '',
-        externalId : '',
+        token : sessionStorage.getItem('token') || '',
+        username : sessionStorage.getItem('username') || '',
+        externalId : sessionStorage.getItem( 'externalId') || '',
     },
     reducers : {
-        connect : (state) => {
-                state.token = sessionStorage.getItem('token') as string;
-                state.username = sessionStorage.getItem('username') as string;
-                state.externalId = sessionStorage.getItem('externalId') as string;
+        connect : (state, action) => {
+               const { token, username, externalId } = action.payload;
+               state.token = token;
+               state.username = username;
+               state.externalId = externalId;
         }
         ,
         disconnect: (state) => {
             state.users = [] as UserUI[];
-            state.token = '' ;
-            state.username = '' ;
-            state.externalId = '';
+            state.token = "" ;
+            state.username = "" ;
+            state.externalId = "" ;
             sessionStorage.removeItem('token');
             sessionStorage.removeItem('username');
             sessionStorage.removeItem('externalId');

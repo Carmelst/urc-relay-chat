@@ -7,7 +7,8 @@ import {Navbar} from "./landingpage/Navbar";
 import {Dashboard} from "./user/dashboard/Dashboard";
 import {useSelector} from "react-redux";
 function App() {
-    const { token } = useSelector((state) => state.user);
+    const token = useSelector((state) => state.user.token);
+    //console.log('token from appjs', token);
   return (
       <>
           <Router>

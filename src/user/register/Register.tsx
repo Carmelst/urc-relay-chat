@@ -63,25 +63,25 @@ export const RegisterPage = () => {
             <form onSubmit={handleSubmit}>
               <FormControl mt="4" width="400px" isRequired={true}>
                 <FormLabel>Email</FormLabel>
-                <Input id="email" name="email" placeholder="Email" type="email" />
+                <Input id="email" name="email" placeholder="Email" type="email" autoComplete="off"/>
                 <FormErrorMessage>Email is required</FormErrorMessage>
               </FormControl>
 
               <FormControl mt="4" isRequired={true}>
                 <FormLabel>Username</FormLabel>
-                <Input id="username" name="username" type="text" placeholder="Username" />
+                <Input id="username" name="username" type="text" placeholder="Username" autoComplete="off" />
                 <FormErrorMessage>Password is required</FormErrorMessage>
               </FormControl>
 
               <FormControl mt="4" isRequired={true}>
                 <FormLabel>Password</FormLabel>
-                <Input id="password1" name="password1" type="text" placeholder="Password" />
+                <Input id="password1" name="password1" type="text" placeholder="Password" autoComplete="off" />
                 <FormErrorMessage>Password is required</FormErrorMessage>
               </FormControl>
 
               <FormControl mt="4" isRequired={true}>
                 <FormLabel>Password</FormLabel>
-                <Input id="password2" name="password2" type="text" placeholder="Confirm your Password" />
+                <Input id="password2" name="password2" type="text" placeholder="Confirm your Password" autoComplete="off" />
                 <FormErrorMessage>Password is required</FormErrorMessage>
               </FormControl>
 

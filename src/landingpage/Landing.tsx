@@ -1,6 +1,5 @@
 import {
   Button,
-  Image,
   Card,
   ButtonGroup,
   CardBody,
@@ -17,11 +16,6 @@ export function Landing() {
     <div className="landing">
       <Card maxW="md" maxH="300px" align='center'>
         <CardBody>
-          <Image
-            src=""
-            alt="Green double couch with wooden legs"
-            borderRadius="lg"
-          />
           <Stack mt="6" spacing="3">
             <Heading size="lg" textAlign='center'>UBO Relay Chat App</Heading>
             <Text>
