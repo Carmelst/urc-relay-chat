@@ -19,9 +19,9 @@ export interface Account {
 }
 
 export interface UserUI {
-    user_id: number;
+    user_id?: number;
     username: string;
-    last_login?: string;
+    last_login: string;
     external_id?: string;
 }
 
@@ -32,6 +32,12 @@ export interface Session {
     externalId: string;
 }
 
+export interface Message {
+    content: string;
+    senderId: string;
+    receiverId: string;
+    date: string;
+}
 
 export interface EmptyCallback {
     (): void;

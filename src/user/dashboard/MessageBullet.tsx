@@ -1,64 +1,25 @@
 import './MessageBullet.css'
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {AppDispatch, RootState} from "../../app/store";
+import {getMessagesAsync} from "../../app/userSlice";
 
 export const MessageBullet = () => {
-    return (
+        const { externalId, selectedDiscussionId, token, messages } = useSelector((state: RootState) => state.user);
+        const dispatch = useDispatch<AppDispatch>();
+        useEffect(() => {
+                dispatch(getMessagesAsync({senderId: externalId, receiverId : selectedDiscussionId, token : token}));
+        },[selectedDiscussionId]);
+        return (
         <div className="discussion">
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
-            <div className="message-bullet sent">Hello! How are you?</div>
-            <div className="message-bullet received">I’m good, thanks! How about you?</div>
+                {
+                        messages.map((message, index) => (
+                            <div className={`message-sent ${ message.senderId === externalId ? 'sent' : 'received'}`} key={index}>
+                                    <span>{message.content}</span>
+                                    <span>{message.date}</span>
+                            </div>
+                        ))
+                }
         </div>
     );
 }
