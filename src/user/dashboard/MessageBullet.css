@@ -1,48 +1,73 @@
+/* Conteneur principal pour la discussion */
 .discussion {
-        display: flex;
-        flex-direction: column; /* Stacks messages vertically */
-        gap: 10px; /* Space between each message */
-        padding: 15px; /* Padding around the chat area */
-        overflow: auto;
-        width: 100%; /* Full width */
-        box-sizing: border-box; /* Includes padding in width/height calculation */
-        height:100%;
+    display: flex;
+    flex-direction: column; /* Empile les messages verticalement */
+    gap: 10px; /* Espacement entre les messages */
+    padding: 15px; /* Espacement interne */
+    overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+    width: 100%; /* Prend toute la largeur disponible */
+    box-sizing: border-box; /* Inclut le padding dans la largeur/hauteur */
+    height: 100%; /* Prend toute la hauteur disponible */
+    background-color: #f9f9f9; /* Couleur de fond douce */
+    border-radius: 10px; /* Coins arrondis pour le conteneur */
 }
 
-/* General styling for the message bullet */
+/* Message commun (bulle) */
 .message-bullet {
-    max-width: 70%; /* Limits the width to make it look like a chat bubble */
-    padding: 10px 15px; /* Padding inside the bubble */
-    margin: 10px; /* Space around the bubble */
-    background-color: #0078d4; /* Default blue background for a message */
-    color: #fff; /* White text for contrast */
-    font-size: 0.9rem; /* Slightly smaller text */
-    line-height: 1.5; /* Comfortable line height */
-    border-radius: 15px; /* Round corners to create a bubble shape */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
-    word-wrap: break-word; /* Ensures text wraps within the bubble */
-    overflow: hidden; /* Prevents content overflow */
+    max-width: 70%; /* Limite la largeur pour donner un aspect de bulle */
+    padding: 10px 15px; /* Espacement interne */
+    margin: 5px 0; /* Espacement vertical entre les messages */
+    border-radius: 15px; /* Coins arrondis pour l'effet bulle */
+    font-size: 0.9rem; /* Taille du texte */
+    line-height: 1.5; /* Hauteur de ligne confortable */
+    word-wrap: break-word; /* Coupe les mots longs pour éviter les débordements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre subtile */
+    overflow: hidden; /* Empêche le débordement du contenu */
 }
 
-/* Alignment for sent messages (right) */
+/* Messages envoyés (alignés à droite) */
 .message-bullet.sent {
-    background-color: #007bff; /* Blue for sender */
-    color: #fff; /* White text */
-    align-self: flex-end; /* Pushes the bubble to the right */
-    border-top-right-radius: 0; /* Optional: Removes top-right corner rounding */
+    background-color: #007bff; /* Couleur bleue pour les messages envoyés */
+    color: #fff; /* Texte blanc */
+    align-self: flex-end; /* Aligne le message à droite */
+    border-top-right-radius: 0; /* Optionnel : Retire l'arrondi en haut à droite */
 }
 
-/* Alignment for received messages (left) */
+/* Messages reçus (alignés à gauche) */
 .message-bullet.received {
-    background-color: #f1f1f1; /* Light gray for receiver */
-    color: #333; /* Dark text for readability */
-    align-self: flex-start; /* Pushes the bubble to the left */
-    border-top-left-radius: 0; /* Optional: Removes top-left corner rounding */
+    background-color: #f1f1f1; /* Couleur gris clair pour les messages reçus */
+    color: #333; /* Texte sombre */
+    align-self: flex-start; /* Aligne le message à gauche */
+    border-top-left-radius: 0; /* Optionnel : Retire l'arrondi en haut à gauche */
 }
 
-/* Styling for text links inside the message */
-.message-bullet a {
-    color: #ffdd57; /* Highlighted color for links */
-    text-decoration: underline; /* Underline for clarity */
+/* Style pour le texte du contenu du message */
+.message-bullet span:first-child {
+    display: block;
+    margin-bottom: 5px; /* Espace entre le contenu et la date */
 }
 
+/* Style pour la date */
+.message-bullet span:last-child {
+    font-size: 0.75rem; /* Taille réduite pour la date */
+    color: #dcdcdc; /* Couleur plus douce pour la date dans les messages envoyés */
+    text-align: right; /* Aligne la date à droite */
+}
+
+/* Barre de défilement personnalisée pour .discussion */
+.discussion::-webkit-scrollbar {
+    width: 6px; /* Largeur de la barre */
+}
+
+.discussion::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2); /* Couleur de la barre */
+    border-radius: 10px; /* Coins arrondis */
+}
+
+.discussion::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4); /* Couleur plus sombre au survol */
+}
+
+.discussion::-webkit-scrollbar-track {
+    background: transparent; /* Couleur de fond de la piste */
+}

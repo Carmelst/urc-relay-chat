@@ -8,7 +8,7 @@
     border: 1px solid white;
 }
 .conversation {
-    max-height: 85%;
+    height: 85%;
     overflow: auto;
     scroll-behavior: auto;
     background-color: #f9f9f9; /* Fond clair */

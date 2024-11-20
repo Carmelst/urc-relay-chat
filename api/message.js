@@ -1,9 +1,12 @@
 import {getConnecterUser, triggerNotConnected} from "../lib/session.js";
 import { Redis } from '@upstash/redis';
-import {arrayBufferToBase64, stringToArrayBuffer} from "../lib/base64.js";
 // const PushNotifications = require("@pusher/push-notifications-server");
 
 const redis = Redis.fromEnv();
+
+export const generateKey = (id1, id2)  => {
+    return [id1, id2].sort().join('-');
+};
 
 export default async function handler(request, response) {
     try {
@@ -14,9 +17,8 @@ export default async function handler(request, response) {
         }
         else {
             const {content, senderId, receiverId, date} = await request.body;
-            const hash = await crypto.subtle.digest('SHA-256', stringToArrayBuffer(senderId + receiverId));
-            const hashed64MessageId = arrayBufferToBase64(hash);
-            const result = await redis.lpush(`${hashed64MessageId}`, [content, date] );
+            const key = generateKey(senderId, receiverId);
+            const result = await redis.lpush(`${key}`, [date, content] );
             if ( result < 1) {
                 response.send({result : result , message : "Message not sent"});
             }

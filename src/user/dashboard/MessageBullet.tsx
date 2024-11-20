@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {AppDispatch, RootState} from "../../app/store";
 import {getMessagesAsync} from "../../app/userSlice";
+import {Message} from "../../model/common";
 
 export const MessageBullet = () => {
         const { externalId, selectedDiscussionId, token, messages } = useSelector((state: RootState) => state.user);
@@ -13,8 +14,8 @@ export const MessageBullet = () => {
         return (
         <div className="discussion">
                 {
-                        messages.map((message, index) => (
-                            <div className={`message-sent ${ message.senderId === externalId ? 'sent' : 'received'}`} key={index}>
+                        messages.map((message: Message, index) => (
+                            <div className={`message-bullet ${ message.senderId === externalId ? 'sent' : 'received'}`} key={index}>
                                     <span>{message.content}</span>
                                     <span>{message.date}</span>
                             </div>

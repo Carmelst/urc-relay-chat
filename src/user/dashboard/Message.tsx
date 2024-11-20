@@ -16,7 +16,7 @@ export const Message = () => {
     }
 
     const send =() => {
-        sendMessage({content : message, senderId : externalId, receiverId : selectedDiscussionId, date : Date.now().toString()}, token)
+        sendMessage({content : message, senderId : externalId, receiverId : selectedDiscussionId, date : new Date().toLocaleString()}, token)
             .then((response) => {console.log(response); setMessage("")})
             .catch((error) => {console.log(error)});
 
