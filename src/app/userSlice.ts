@@ -3,6 +3,7 @@ import {getMessages, getUsers} from "./services";
 import {Message, UserUI} from "../model/common";
 import {CustomError} from "../model/CustomError";
 
+
 export const getUsersAsync = createAsyncThunk(
     'user/getUsers',
     async (token: string) => {
@@ -79,6 +80,7 @@ const userSlice = createSlice({
             })
     }
 })
+
 
 export const { connect, disconnect, selectDiscussion } = userSlice.actions;
 export default  userSlice.reducer;

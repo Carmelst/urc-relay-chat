@@ -18,12 +18,15 @@ export default async function handler(request, response){
             const messagesLength =  await redis.llen(key);
             const messagesContent = await redis.lrange(key,0, messagesLength-1);
             messagesContent.reverse();
-            const messages = messagesContent.map( (item) => ({
-                    content : item.toString().split(',')[0],
-                    senderId : senderId,
-                    receiverId : receiverId,
-                    date : item.toString().split(',')[1]
-            }));
+            const messages = messagesContent.map( (item) => {
+                const [MessageSender, MessageReceiver, content, date] = item.toString().split(',');
+                return {
+                    content : content,
+                    senderId : MessageSender,
+                    receiverId : MessageReceiver,
+                    date : date
+                }
+            });
             response.json(messages);
         }
     } catch (error) {

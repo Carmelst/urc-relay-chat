@@ -18,7 +18,7 @@ export default async function handler(request, response) {
         else {
             const {content, senderId, receiverId, date} = await request.body;
             const key = generateKey(senderId, receiverId);
-            const result = await redis.lpush(`${key}`, [date, content] );
+            const result = await redis.lpush(`${key}`, [senderId, receiverId, date, content] );
             if ( result < 1) {
                 response.send({result : result , message : "Message not sent"});
             }
@@ -30,4 +30,4 @@ export default async function handler(request, response) {
         console.log(error);
         response.status(500).json(error);
     }
-};
+}
