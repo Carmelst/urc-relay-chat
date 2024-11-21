@@ -1,16 +1,15 @@
 import './MessageBullet.css'
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {AppDispatch, RootState} from "../../app/store";
-import {getMessagesAsync} from "../../app/userSlice";
+import { useSelector} from "react-redux";
+import { RootState} from "../../app/store";
 import {Message} from "../../model/common";
+import {Spinner} from "@chakra-ui/react";
 
 export const MessageBullet = () => {
-        const { externalId, selectedDiscussionId, token, messages } = useSelector((state: RootState) => state.user);
-        const dispatch = useDispatch<AppDispatch>();
-        useEffect(() => {
-                dispatch(getMessagesAsync({senderId: externalId, receiverId : selectedDiscussionId, token : token}));
-        },[selectedDiscussionId]);
+        const { externalId, messages} = useSelector((state: RootState) => state.user);
+
+        if (!messages) {
+                return <Spinner />;
+        }
         return (
         <div className="discussion">
                 {

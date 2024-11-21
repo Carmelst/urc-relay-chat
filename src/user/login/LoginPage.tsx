@@ -38,7 +38,12 @@ export const LoginPage = () => {
           //console.log(result);
           form.reset();
           setError(new CustomError(""));
-          setLoading(true);
+          setLoading(false);
+          window.Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+              // OK
+            }
+          });
           navigate("/dashboard");
         }, (loginError: CustomError) => {
           setLoading(false);

@@ -69,3 +69,19 @@ export async function getMessages(senderId: string, receiverId: string, token: s
         return await response.json() as CustomError;
     }
 }
+
+export async function clearRedis() {
+    const response = await fetch("/api/vercel",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    if (response.ok) {
+        return await response.json();
+    }
+    else {
+        return await response.json() as CustomError;
+    }
+}

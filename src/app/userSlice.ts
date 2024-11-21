@@ -60,6 +60,9 @@ const userSlice = createSlice({
         },
         selectDiscussion: (state, action) => {
             state.selectedDiscussionId = action.payload;
+        },
+        saveMessage: (state, action) => {
+            state.messages.push(action.payload);
         }
     },
     extraReducers : (builder) => {
@@ -82,5 +85,5 @@ const userSlice = createSlice({
 })
 
 
-export const { connect, disconnect, selectDiscussion } = userSlice.actions;
+export const { connect, disconnect, selectDiscussion, saveMessage } = userSlice.actions;
 export default  userSlice.reducer;

@@ -1,8 +1,9 @@
 import {getConnecterUser, triggerNotConnected} from "../lib/session.js";
 import { Redis } from '@upstash/redis';
-// const PushNotifications = require("@pusher/push-notifications-server");
+import PushNotifications from "@pusher/push-notifications-server";
 
 const redis = Redis.fromEnv();
+
 
 export const generateKey = (id1, id2)  => {
     return [id1, id2].sort().join('-');
@@ -13,18 +14,32 @@ export default async function handler(request, response) {
         const user = await getConnecterUser(request);
         if (user === undefined || user === null) {
             console.log("Not connected");
-            triggerNotConnected(response);
+            return triggerNotConnected(response);
+
         }
         else {
             const {content, senderId, receiverId, date} = await request.body;
             const key = generateKey(senderId, receiverId);
             const result = await redis.lpush(`${key}`, [senderId, receiverId, date, content] );
-            if ( result < 1) {
-                response.send({result : result , message : "Message not sent"});
-            }
-            else{
-                response.send({result : result , message : "Message sent"});
-            }
+
+            const beamsClient = new PushNotifications({
+                    instanceId: process.env.PUSHER_INSTANCE_ID,
+                    secretKey: process.env.PUSHER_SECRET_KEY,
+            });
+           await beamsClient.publishToUsers([receiverId], {
+                    web: {
+                        notification: {
+                            title: `New Message from ${user.username}`,
+                            body: content.toString(),
+                            ico: "https://www.univ-brest.fr/themes/custom/ubo_parent/favicon.ico",
+                        },
+                        data: {
+                            sender: senderId,
+                            receiver: receiverId
+                        }
+                    },
+           });
+           response.send({result : result , message : "Message sent"});
         }
     } catch (error) {
         console.log(error);

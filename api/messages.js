@@ -19,7 +19,7 @@ export default async function handler(request, response){
             const messagesContent = await redis.lrange(key,0, messagesLength-1);
             messagesContent.reverse();
             const messages = messagesContent.map( (item) => {
-                const [MessageSender, MessageReceiver, content, date] = item.toString().split(',');
+                const [MessageSender, MessageReceiver, date, content] = item.toString().split(',');
                 return {
                     content : content,
                     senderId : MessageSender,

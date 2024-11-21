@@ -18,7 +18,7 @@
     padding: 10px 15px; /* Espacement interne */
     margin: 5px 0; /* Espacement vertical entre les messages */
     border-radius: 15px; /* Coins arrondis pour l'effet bulle */
-    font-size: 0.9rem; /* Taille du texte */
+    font-size: 12px; /* Taille du texte */
     line-height: 1.5; /* Hauteur de ligne confortable */
     word-wrap: break-word; /* Coupe les mots longs pour éviter les débordements */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre subtile */
@@ -43,14 +43,14 @@
 
 /* Style pour le texte du contenu du message */
 .message-bullet span:first-child {
+    font-size: 1rem; /* Taille réduite pour la date */
     display: block;
     margin-bottom: 5px; /* Espace entre le contenu et la date */
 }
 
 /* Style pour la date */
 .message-bullet span:last-child {
-    font-size: 0.75rem; /* Taille réduite pour la date */
-    color: #dcdcdc; /* Couleur plus douce pour la date dans les messages envoyés */
+    display: block;
     text-align: right; /* Aligne la date à droite */
 }
 
