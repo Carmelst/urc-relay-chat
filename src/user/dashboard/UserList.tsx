@@ -31,6 +31,7 @@ export const UserList = () => {
                 dispatch(saveMessage(message));
             }
             else {
+                setSelectedUser(message.senderId);
                 dispatch(selectDiscussion(message.senderId));
                 dispatch(getMessagesAsync({senderId : message.senderId, receiverId : message.receiverId , token}))
             }
