@@ -3,7 +3,8 @@ import type { AppDispatch } from '../../app/store';
 import {RootState} from "../../app/store";
 import './UserList.css';
 import {useEffect, useState} from "react";
-import {getMessagesAsync, getUsersAsync, selectDiscussion} from "../../app/userSlice";
+import {getMessagesAsync, getUsersAsync, saveMessage, selectDiscussion} from "../../app/userSlice";
+import {Message} from "../../model/common";
 
 
 export const UserList = () => {
@@ -21,13 +22,19 @@ export const UserList = () => {
         dispatch(getUsersAsync(token as string));
     }, [])
 
-
     const sw = navigator.serviceWorker;
     if (sw != null) {
         sw.onmessage = (event) => {
-            const {sender, receiver} : {sender : string, receiver : string}= event.data;
-            dispatch(selectDiscussion(sender));
-            dispatch(getMessagesAsync({senderId : sender, receiverId : receiver , token}))
+            const {message} : {message : Message}= event.data;
+            if (selectedUser === message.senderId) {
+                setSelectedUser(message.senderId);
+                dispatch(saveMessage(message));
+            }
+            else {
+                dispatch(selectDiscussion(message.senderId));
+                dispatch(getMessagesAsync({senderId : message.senderId, receiverId : message.receiverId , token}))
+            }
+
         }
     }
     return (

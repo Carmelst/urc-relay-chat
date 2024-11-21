@@ -34,8 +34,12 @@ export default async function handler(request, response) {
                             ico: "https://www.univ-brest.fr/themes/custom/ubo_parent/favicon.ico",
                         },
                         data: {
-                            sender: senderId,
-                            receiver: receiverId
+                            message: {
+                                content : content.toString(),
+                                senderId: senderId,
+                                receiverId: receiverId,
+                                date: date.toString(),
+                            }
                         }
                     },
            });

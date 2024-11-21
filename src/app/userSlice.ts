@@ -21,6 +21,7 @@ export const getMessagesAsync = createAsyncThunk(
     'user/getMessages',
     async ({senderId, receiverId, token} : {senderId : string, receiverId : string, token : string}) => {
         try {
+            console.log('appel api');
             return await getMessages(senderId, receiverId, token);
         }
         catch (error) {
