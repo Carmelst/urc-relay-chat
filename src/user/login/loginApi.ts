@@ -16,7 +16,7 @@ export function loginUser(user: User, onResult: SessionCallback, onError: ErrorC
                 sessionStorage.setItem('token', session.token);
                 sessionStorage.setItem('externalId', session.externalId);
                 sessionStorage.setItem('username', session.username || "");
-                localStorage.setItem('token', session.token);
+                localStorage.setItem('tokenurc', session.token);
                 onResult(session)
             } else {
                 const error = await response.json() as CustomError;

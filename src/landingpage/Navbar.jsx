@@ -9,7 +9,7 @@ export function Navbar() {
     const dispatch = useDispatch();
 
     const handleLogout = async () => {
-        localStorage.clear();
+        localStorage.removeItem("token");
         sessionStorage.clear();
         dispatch(disconnect());
     }

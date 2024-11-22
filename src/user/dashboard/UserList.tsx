@@ -8,8 +8,6 @@ import {Message} from "../../model/common";
 import {useNavigate, useParams} from "react-router-dom";
 
 
-
-
 export const UserList = () => {
     const navigate = useNavigate();
     const { user_id } = useParams();
@@ -28,7 +26,7 @@ export const UserList = () => {
     useEffect(() => {
         dispatch(getUsersAsync(token as string));
         if (user_id){
-            handleSelectedUser(user_id as string);
+            handleSelectedUser(user_id);
         }
     }, [])
 
