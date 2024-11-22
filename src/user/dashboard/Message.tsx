@@ -23,7 +23,7 @@ export const Message = () => {
         setLoading(true);
         const newMessage = { content : message, senderId: externalId, receiverId: selectedDiscussionId, date : new Date().toLocaleString()};
         sendMessage(newMessage, token)
-            .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(newMessage)); setLoading(false);})
+            .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(newMessage)) ;setLoading(false);})
             .catch((error) => {console.log(error)});
     }
 

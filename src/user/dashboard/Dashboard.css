@@ -62,6 +62,7 @@
 
 /* Styling for the right-side main content */
 .dashboard-main {
+    max-width: 70%;
     flex-grow: 1;
     padding: 20px;
     background-color: #edf2f7;

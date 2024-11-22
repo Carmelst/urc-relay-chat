@@ -10,24 +10,30 @@ export default async function handler(request, response){
         const user = await getConnecterUser(request);
         if (user === undefined || user === null) {
             console.log("Not connected");
-            triggerNotConnected(response);
+            return triggerNotConnected(response);
         }
         else {
             const {senderId, receiverId} = await request.body;
             const key = generateKey(senderId, receiverId);
-            const messagesLength =  await redis.llen(key);
-            const messagesContent = await redis.lrange(key,0, messagesLength-1);
+            const messagesContent = await redis.lrange(key,0, -1);
+            if (!messagesContent || messagesContent.length === 0) {
+                console.log("No messages");
+                return response.status(200).json([]);
+            }
             messagesContent.reverse();
-            const messages = messagesContent.map( (item) => {
-                const [MessageSender, MessageReceiver, date, content] = item.toString().split(',');
-                return {
-                    content : content,
-                    senderId : MessageSender,
-                    receiverId : MessageReceiver,
-                    date : date
+            const messages = messagesContent.map((item) => {
+                try {
+                    if (typeof item === "string"){
+                        return JSON.parse(item);
+                    }
+                    return item;
+                } catch (err) {
+                    console.error("Erreur lors du parsing du message : ", item, err);
+                    return null; // Optionnel : Ignorer les messages mal formés
                 }
-            });
-            response.json(messages);
+            }).filter((msg) => msg !== null); // Supprimer les messages mal formés
+            // Renvoie des messages au format JSON
+            return response.status(200).json(messages);
         }
     } catch (error) {
         console.log(error);

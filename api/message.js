@@ -15,12 +15,17 @@ export default async function handler(request, response) {
         if (user === undefined || user === null) {
             console.log("Not connected");
             return triggerNotConnected(response);
-
         }
         else {
             const {content, senderId, receiverId, date} = await request.body;
             const key = generateKey(senderId, receiverId);
-            const result = await redis.lpush(`${key}`, [senderId, receiverId, date, content] );
+            const message = JSON.stringify({
+                content : content,
+                senderId: senderId,
+                receiverId: receiverId,
+                date: date,
+            });
+            const result = await redis.lpush(`${key}`, message );
 
             const beamsClient = new PushNotifications({
                     instanceId: process.env.PUSHER_INSTANCE_ID,

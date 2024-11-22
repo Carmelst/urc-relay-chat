@@ -71,7 +71,7 @@ export async function getMessages(senderId: string, receiverId: string, token: s
 }
 
 export async function clearRedis() {
-    const response = await fetch("/api/vercel",
+    const response = await fetch("/api/clear-redis",
         {
             method: "POST",
             headers: {

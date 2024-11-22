@@ -8,7 +8,9 @@ export function Navbar() {
     const { token, username } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        localStorage.clear();
+        sessionStorage.clear();
         dispatch(disconnect());
     }
     return (

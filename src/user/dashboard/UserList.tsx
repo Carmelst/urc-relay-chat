@@ -5,21 +5,31 @@ import './UserList.css';
 import {useEffect, useState} from "react";
 import {getMessagesAsync, getUsersAsync, saveMessage, selectDiscussion} from "../../app/userSlice";
 import {Message} from "../../model/common";
+import {useNavigate, useParams} from "react-router-dom";
+
+
 
 
 export const UserList = () => {
+    const navigate = useNavigate();
+    const { user_id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
     const { users, token, externalId } = useSelector((state:RootState) => state.user);
     const [selectedUser, setSelectedUser] = useState('');
+
 
     const handleSelectedUser = (selectedId : string) => {
         setSelectedUser(selectedId)
         dispatch(selectDiscussion(selectedId));
         dispatch(getMessagesAsync({senderId: externalId, receiverId : selectedId, token : token}));
+        navigate(`/messages/user/${selectedId}`);
     }
 
     useEffect(() => {
         dispatch(getUsersAsync(token as string));
+        if (user_id){
+            handleSelectedUser(user_id as string);
+        }
     }, [])
 
     const sw = navigator.serviceWorker;
@@ -27,7 +37,6 @@ export const UserList = () => {
         sw.onmessage = (event) => {
             const {message} : {message : Message}= event.data;
             if (selectedUser === message.senderId) {
-                setSelectedUser(message.senderId);
                 dispatch(saveMessage(message));
             }
             else {
@@ -48,7 +57,7 @@ export const UserList = () => {
                     onClick={() => handleSelectedUser(item.external_id as string)}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                            handleSelectedUser(externalId);
+                            handleSelectedUser(item.external_id as string);
                         }
                     }}
                     tabIndex={0} // Makes the div focusable

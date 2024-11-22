@@ -19,7 +19,7 @@ export const Dashboard = () => {
     const beamsTokenProvider = new TokenProvider({
         url: "/api/beams",
         headers: {
-            Authentication: "Bearer " + token, // Headers your auth endpoint needs
+            Authentication: `Bearer ${token}`
         },
     });
     beamsClient.start()

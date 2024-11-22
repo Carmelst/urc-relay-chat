@@ -44,7 +44,7 @@ export const LoginPage = () => {
               // OK
             }
           });
-          navigate("/dashboard");
+          navigate("/messages/user/");
         }, (loginError: CustomError) => {
           setLoading(false);
           setError(loginError);
