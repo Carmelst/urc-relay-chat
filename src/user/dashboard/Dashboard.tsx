@@ -4,9 +4,8 @@ import {UserList} from "./UserList";
 import {SaloonList} from "./SaloonList";
 import './Dashboard.css';
 import {Messages} from "./Messages";
-import {Client, TokenProvider} from "@pusher/push-notifications-web";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../../app/store";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../../app/store";
 import {showRoomMessage} from "../../app/userSlice";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPeopleArrows, faUsersBetweenLines} from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +15,6 @@ import {faPeopleArrows, faUsersBetweenLines} from "@fortawesome/free-solid-svg-i
 export const Dashboard = () => {
     const dispatch = useDispatch<AppDispatch>();
     const [showUsers, setShowUsers] = useState<boolean>(true);
-    const {externalId, token} = useSelector((state: RootState) => state.user);
 
     return (
         <>

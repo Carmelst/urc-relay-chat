@@ -1,6 +1,6 @@
 import {getConnecterUser, triggerNotConnected} from "../lib/session.js";
 import { Redis } from '@upstash/redis';
-import {pushNotificationToRoom, pushNotificationToUSer} from "../src/app/notification-service";
+import {pushNotificationToRoom, pushNotificationToUSer} from "../src/app/notification-service.js";
 
 const redis = Redis.fromEnv();
 
@@ -30,11 +30,11 @@ export default async function handler(request, response) {
             if (selectedRoom === "0") {
                 const key = generateKey(message.senderId, message.receiverId);
                 result = await redis.lpush(`${key}`, newMessage );
-                //await pushNotificationToUSer(message.receiverId, user.username, message);
+                await pushNotificationToUSer(message.receiverId, user.username, message);
             }
             else{
                 result = await redis.lpush(`${message.receiverId}`, newMessage);
-                //await pushNotificationToRoom(user.username, message);
+                await pushNotificationToRoom(user.username, message);
             }
 
            response.send({result : result , message : "Message sent"});
