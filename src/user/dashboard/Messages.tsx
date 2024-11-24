@@ -72,7 +72,7 @@ export const Messages = () => {
                 console.log(response) ;
                 let mediaMessage = {} as Message;
                 if (showRoomMessage){
-                    mediaMessage = { content : message, senderId: externalId, receiverId: selectRoom.toString(), date : new Date().toLocaleString(), media: response as string };
+                    mediaMessage = { content : message, senderId: externalId, receiverId: selectedRoomId.toString(), date : new Date().toLocaleString(), media: response as string };
                     sendMessage(mediaMessage, selectedRoomId.toString(), token)
                         .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(mediaMessage)) ;setSavingMedia(false)})
                         .catch((error) => {console.log(error); setSavingMedia(false)});
