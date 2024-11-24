@@ -57,15 +57,15 @@ export async function sendMessageWithMedia(file: File, token: string) {
         console.error("No file provided");
         return;
     }
-    //const formData = new FormData();
-    //formData.append('file', file); // Add the file to FormData
+    const formData = new FormData();
+    formData.append('file', file); // Add the file to FormData
 
     const response = await fetch(`/api/messageWithMedia?filename=${file.name}`, {
         method: "POST",
         headers: {
             "Authentication": `Bearer ${token}`,
         },
-        body: file,
+        body: formData,
     });
 
     if (response.ok) {
