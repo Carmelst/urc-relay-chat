@@ -61,6 +61,7 @@
 .dashboard-navbar-main {
     flex-grow: 1;  /* This will make the element grow to take available space */
     width: 100%;
+    max-height:100%;
 }
 
 
