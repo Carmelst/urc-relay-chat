@@ -35,6 +35,12 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre subtile */
     overflow: hidden; /* Empêche le débordement du contenu */
 }
+.message-bullet img {
+    max-width: 100%; /* Ensures the image takes up the full width of the bubble */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 10px; /* Adds rounded corners to the image */
+    margin-bottom: 10px; /* Adds some space between the image and the text */
+}
 
 /* Messages envoyés (alignés à droite) */
 .message-bullet.sent {
