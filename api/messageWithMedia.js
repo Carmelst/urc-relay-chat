@@ -12,7 +12,8 @@ export default async function handler(request, response) {
             console.log('user not connected');
             return triggerNotConnected(response);
         }
-        const { searchParams } = new URL(request.url);
+        const baseUrl = process.env.BASE_URL;
+        const { searchParams } = new URL(request.url, baseUrl);
         const filename = searchParams.get('filename');
 
 
