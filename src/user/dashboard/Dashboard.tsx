@@ -4,17 +4,36 @@ import {UserList} from "./UserList";
 import {SaloonList} from "./SaloonList";
 import './Dashboard.css';
 import {Messages} from "./Messages";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "../../app/store";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../../app/store";
 import {showRoomMessage} from "../../app/userSlice";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPeopleArrows, faUsersBetweenLines} from "@fortawesome/free-solid-svg-icons";
+import {Client, TokenProvider} from "@pusher/push-notifications-web";
 
 
 
 export const Dashboard = () => {
     const dispatch = useDispatch<AppDispatch>();
     const [showUsers, setShowUsers] = useState<boolean>(true);
+    const {externalId, token} = useSelector((state: RootState) => state.user);
+
+    const beamsClient = new Client({
+        instanceId: 'a31f2055-ce9d-4e3a-8b45-53092db14832',
+    });
+    const beamsTokenProvider = new TokenProvider({
+        url: "/api/beams",
+        headers: {
+            Authentication: `Bearer ${token}`
+        },
+    });
+    beamsClient.start()
+        .then(() => beamsClient.addDeviceInterest('global'))
+        .then(() => beamsClient.setUserId(externalId, beamsTokenProvider))
+        .then(() => {
+            beamsClient.getDeviceId().then(deviceId => console.log("Push id : " + deviceId));
+        })
+        .catch(console.error);
 
     return (
         <>
