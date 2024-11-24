@@ -54,7 +54,7 @@ export const Message = () => {
         sendMessageWithMedia(file, token)
             .then((response) => {
                 console.log(response) ;
-                const newMessage = {content: message, senderId: externalId, receiverId: selectedDiscussionId, date : new Date().toLocaleString(), media : response};
+                const newMessage = {content: message, senderId: externalId, receiverId: selectedDiscussionId, date : new Date().toLocaleString(), media : response as string};
                 sendMessage(newMessage, token)
                     .then((response) => {console.log(response); })
                     .catch((error) => {console.log(error); });
