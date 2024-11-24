@@ -21,6 +21,8 @@ function App() {
                       <Route path='/register' element={ connected ?  <Dashboard/> : <RegisterPage/>}></Route>
                       <Route path="/messages/user/" element={ connected ?  <Dashboard/> : <Landing />} />
                       <Route path="/messages/user/:user_id" element={ connected ?  <Dashboard/> : <Landing />} />
+                      <Route path="/messages/room/" element={ connected ?  <Dashboard/> : <Landing />} />
+                      <Route path="/messages/room/:room_id" element={ connected ?  <Dashboard/> : <Landing />} />
                   </Routes>
               </div>
           </Router>

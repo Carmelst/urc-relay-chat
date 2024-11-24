@@ -7,20 +7,22 @@ import {
     AlertDialogOverlay,
     Button, useDisclosure
 } from "@chakra-ui/react";
-import "./Message.css";
+import "./Messages.css";
 import {MessageBullet} from "./MessageBullet";
 import React, {useEffect, useRef, useState} from "react";
 import {sendMessage, sendMessageWithMedia} from "../../app/services";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/store";
-import {saveMessage} from "../../app/userSlice";
+import {saveMessage, selectRoom} from "../../app/userSlice";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFileImage, faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+import {Message} from "../../model/common";
 
-export const Message = () => {
+
+export const Messages = () => {
     const conversationRef = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch<AppDispatch>();
-    const { token, externalId, selectedDiscussionId, messages} = useSelector((state: RootState) => state.user);
+    const { token, externalId, selectedDiscussionId, selectedRoomId, messages, showRoomMessage} = useSelector((state: RootState) => state.user);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [savingMedia, setSavingMedia] = useState(false);
@@ -39,10 +41,24 @@ export const Message = () => {
             return;
         }
         setLoading(true);
-        const newMessage = { content : message, senderId: externalId, receiverId: selectedDiscussionId, date : new Date().toLocaleString()};
-        sendMessage(newMessage, token)
-            .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(newMessage)) ;setLoading(false);})
-            .catch((error) => {console.log(error); setLoading(false);});
+        let newMessage = {} as Message;
+        if (showRoomMessage){
+            console.log("sending showroom message");
+            newMessage = { content : message, senderId: externalId, receiverId: selectedRoomId.toString(), date : new Date().toLocaleString()};
+            console.log(newMessage);
+            sendMessage(newMessage, selectedRoomId.toString(), token)
+                .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(newMessage)) ;setLoading(false);})
+                .catch((error) => {console.log(error); setLoading(false);});
+        }
+        else{
+            console.log("sending user message");
+            console.log(newMessage);
+            newMessage = { content : message, senderId: externalId, receiverId: selectedDiscussionId , date : new Date().toLocaleString()};
+            sendMessage(newMessage, "0", token)
+                .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(newMessage)) ;setLoading(false);})
+                .catch((error) => {console.log(error); setLoading(false);});
+        }
+
     }
 
     const sendImage = () => {
@@ -54,10 +70,20 @@ export const Message = () => {
         sendMessageWithMedia(file, token)
             .then((response) => {
                 console.log(response) ;
-                const newMessage = {content: message, senderId: externalId, receiverId: selectedDiscussionId, date : new Date().toLocaleString(), media : response as string};
-                sendMessage(newMessage, token)
-                    .then((response) => {console.log(response); dispatch(saveMessage(newMessage)) ;setSavingMedia(false) })
-                    .catch((error) => {console.log(error); setSavingMedia(false) });
+                let mediaMessage = {} as Message;
+                if (showRoomMessage){
+                    mediaMessage = { content : message, senderId: externalId, receiverId: selectRoom.toString(), date : new Date().toLocaleString()};
+                    sendMessage(mediaMessage, selectedRoomId.toString(), token)
+                        .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(mediaMessage)) ;setLoading(false);})
+                        .catch((error) => {console.log(error); setLoading(false);});
+                }
+                else{
+                    mediaMessage = { content : message, senderId: externalId, receiverId: selectedDiscussionId , date : new Date().toLocaleString()};
+                    sendMessage(mediaMessage, "0", token)
+                        .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(mediaMessage)) ;setLoading(false);})
+                        .catch((error) => {console.log(error); setLoading(false);});
+                }
+
             })
             .catch((error) => {console.log(error); setSavingMedia(false);});
 

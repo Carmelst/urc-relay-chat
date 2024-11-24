@@ -39,7 +39,12 @@ export interface Message {
     date: string;
     media? : string;
 }
-
+export interface Room {
+    room_id: number;
+    name: string;
+    created_on?: string;
+    created_by?: string;
+}
 export interface EmptyCallback {
     (): void;
 }

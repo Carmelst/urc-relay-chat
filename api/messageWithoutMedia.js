@@ -17,34 +17,40 @@ export default async function handler(request, response) {
             return triggerNotConnected(response);
         }
         else {
-            const {content, senderId, receiverId, date, media} = await request.body;
-            const key = generateKey(senderId, receiverId);
-            const message = JSON.stringify({
-                content : content,
-                senderId: senderId,
-                receiverId: receiverId,
-                date: date,
-                media : media
+            const {message, selectedRoom} = await request.body;
+            const newMessage = JSON.stringify({
+                content : message.content,
+                senderId: message.senderId,
+                receiverId: message.receiverId,
+                date: message.date,
+                media : message.media,
             });
-            const result = await redis.lpush(`${key}`, message );
+            let result = 0;
+            if (selectedRoom === "0") {
+                const key = generateKey(message.senderId, message.receiverId);
+                result = await redis.lpush(`${key}`, newMessage );
+            }
+            else{
+                result = await redis.lpush(`${message.receiverId}`, newMessage);
+            }
 
             const beamsClient = new PushNotifications({
                     instanceId: process.env.PUSHER_INSTANCE_ID,
                     secretKey: process.env.PUSHER_SECRET_KEY,
             });
-           await beamsClient.publishToUsers([receiverId], {
+           await beamsClient.publishToUsers([message.receiverId], {
                     web: {
                         notification: {
                             title: `New Message from ${user.username}`,
-                            body: content.toString(),
+                            body: message.content.toString(),
                             ico: "https://www.univ-brest.fr/themes/custom/ubo_parent/favicon.ico",
                         },
                         data: {
                             message: {
-                                content : content.toString(),
-                                senderId: senderId,
-                                receiverId: receiverId,
-                                date: date.toString(),
+                                content : message.content.toString(),
+                                senderId: message.senderId,
+                                receiverId: message.receiverId,
+                                date: message.date.toString(),
                             }
                         }
                     },

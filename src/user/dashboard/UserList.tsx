@@ -19,12 +19,12 @@ export const UserList = () => {
     const handleSelectedUser = (selectedId : string) => {
         setSelectedUser(selectedId)
         dispatch(selectDiscussion(selectedId));
-        dispatch(getMessagesAsync({senderId: externalId, receiverId : selectedId, token : token}));
+        dispatch(getMessagesAsync({senderId: externalId, receiverId : selectedId, token : token, selectedRoom : "0" }));
         navigate(`/messages/user/${selectedId}`);
     }
 
     useEffect(() => {
-        dispatch(getUsersAsync(token as string));
+        if (users.length === 0) dispatch(getUsersAsync(token as string));
         if (user_id){
             handleSelectedUser(user_id);
         }
@@ -40,7 +40,7 @@ export const UserList = () => {
             else {
                 setSelectedUser(message.senderId);
                 dispatch(selectDiscussion(message.senderId));
-                dispatch(getMessagesAsync({senderId : message.senderId, receiverId : message.receiverId , token}))
+                dispatch(getMessagesAsync({senderId : message.senderId, receiverId : message.receiverId , token, selectedRoom : "0"}))
             }
 
         }

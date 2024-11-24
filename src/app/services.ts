@@ -18,6 +18,22 @@ export async function getUsers(token: string) {
     }
 }
 
+export async function getRooms(token: string) {
+    const response = await fetch("/api/rooms",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authentication": `Bearer ${token}`,
+            }
+        })
+    if (response.ok) {
+        return await response.json();
+    } else {
+        return await response.json() as CustomError;
+    }
+}
+
 export async function saveUser(newUser: Account) {
     const response = await fetch("/api/register",
         {
@@ -34,7 +50,7 @@ export async function saveUser(newUser: Account) {
     }
 }
 
-export async function sendMessage(message: Message, token: string) {
+export async function sendMessage(message: Message, selectedRoom : string,  token: string) {
     const response = await fetch("/api/messageWithoutMedia",
         {
             method: "POST",
@@ -42,7 +58,7 @@ export async function sendMessage(message: Message, token: string) {
                 "Content-Type": "application/json",
                 "Authentication": `Bearer ${token}`,
             },
-            body: JSON.stringify(message)
+            body: JSON.stringify({message, selectedRoom}),
         });
     if (response.ok) {
         return await response.json();
@@ -77,7 +93,7 @@ export async function sendMessageWithMedia(file: File, token: string) {
 }
 
 
-export async function getMessages(senderId: string, receiverId: string, token: string) {
+export async function getMessages(senderId: string, receiverId: string, token: string, selectedRoom: string) {
     const response = await fetch("/api/messages",
         {
             method: "POST",
@@ -85,7 +101,7 @@ export async function getMessages(senderId: string, receiverId: string, token: s
                 "Content-Type": "application/json",
                 "Authentication": `Bearer ${token}`,
             },
-            body: JSON.stringify({senderId, receiverId}),
+            body: JSON.stringify({senderId, receiverId, selectedRoom}),
         });
     if (response.ok) {
         return await response.json();

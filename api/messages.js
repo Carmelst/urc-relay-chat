@@ -13,9 +13,15 @@ export default async function handler(request, response){
             return triggerNotConnected(response);
         }
         else {
-            const {senderId, receiverId} = await request.body;
-            const key = generateKey(senderId, receiverId);
-            const messagesContent = await redis.lrange(key,0, -1);
+            const {senderId, receiverId, selectedRoom} = await request.body;
+            let messagesContent = {}
+            if (selectedRoom === "0"){
+                const key = generateKey(senderId, receiverId);
+                messagesContent = await redis.lrange(key,0, -1);
+            }
+            else{
+                messagesContent = await redis.lrange(receiverId,0, -1);
+            }
             if (!messagesContent || messagesContent.length === 0) {
                 console.log("No messages");
                 return response.status(200).json([]);
