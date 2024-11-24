@@ -18,7 +18,12 @@ export const MessageBullet = () => {
                                 <div
                                     className={`message-bullet ${message.senderId === externalId ? 'sent' : 'received'}`}
                                     key={index}>
-                                    <span>{message.content}</span>
+                                    {
+                                        message.media ?
+                                            (<img src={message.media} alt="Media failed to load...Sorry" className="message-image" />)
+                                            :
+                                            (<span>{message.content}</span>)
+                                    }
                                     <span>{message.date}</span>
                                 </div>
                             ))
