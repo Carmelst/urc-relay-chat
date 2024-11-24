@@ -17,13 +17,14 @@ export default async function handler(request, response) {
             return triggerNotConnected(response);
         }
         else {
-            const {content, senderId, receiverId, date} = await request.body;
+            const {content, senderId, receiverId, date, media} = await request.body;
             const key = generateKey(senderId, receiverId);
             const message = JSON.stringify({
                 content : content,
                 senderId: senderId,
                 receiverId: receiverId,
                 date: date,
+                media : media
             });
             const result = await redis.lpush(`${key}`, message );
 
