@@ -72,13 +72,13 @@ export const Messages = () => {
                 console.log(response) ;
                 let mediaMessage = {} as Message;
                 if (showRoomMessage){
-                    mediaMessage = { content : message, senderId: externalId, receiverId: selectRoom.toString(), date : new Date().toLocaleString()};
+                    mediaMessage = { content : message, senderId: externalId, receiverId: selectRoom.toString(), date : new Date().toLocaleString(), media: response as string };
                     sendMessage(mediaMessage, selectedRoomId.toString(), token)
                         .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(mediaMessage)) ;setLoading(false);})
                         .catch((error) => {console.log(error); setLoading(false);});
                 }
                 else{
-                    mediaMessage = { content : message, senderId: externalId, receiverId: selectedDiscussionId , date : new Date().toLocaleString()};
+                    mediaMessage = { content : message, senderId: externalId, receiverId: selectedDiscussionId , date : new Date().toLocaleString(), media: response as string };
                     sendMessage(mediaMessage, "0", token)
                         .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(mediaMessage)) ;setLoading(false);})
                         .catch((error) => {console.log(error); setLoading(false);});
