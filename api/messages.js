@@ -33,7 +33,8 @@ export default async function handler(request, response){
                         return JSON.parse(item);
                     }
                     return item;
-                } catch (err) {
+                }
+                catch (err) {
                     console.error("Erreur lors du parsing du message : ", item, err);
                     return null; // Optionnel : Ignorer les messages mal formés
                 }

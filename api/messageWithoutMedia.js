@@ -25,6 +25,7 @@ export default async function handler(request, response) {
                 date: message.date,
                 media : message.media,
             });
+            console.log(newMessage);
             let result = 0;
             if (selectedRoom === "0") {
                 const key = generateKey(message.senderId, message.receiverId);
