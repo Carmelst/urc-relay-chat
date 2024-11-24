@@ -17,22 +17,7 @@ export const Dashboard = () => {
     const dispatch = useDispatch<AppDispatch>();
     const [showUsers, setShowUsers] = useState<boolean>(true);
     const {externalId, token} = useSelector((state: RootState) => state.user);
-    const beamsClient = new Client({
-        instanceId: 'a31f2055-ce9d-4e3a-8b45-53092db14832',
-    });
-    const beamsTokenProvider = new TokenProvider({
-        url: "/api/beams",
-        headers: {
-            Authentication: `Bearer ${token}`
-        },
-    });
-    beamsClient.start()
-        .then(() => beamsClient.addDeviceInterest('global'))
-        .then(() => beamsClient.setUserId(externalId, beamsTokenProvider))
-        .then(() => {
-            beamsClient.getDeviceId().then(deviceId => console.log("Push id : " + deviceId));
-        })
-        .catch(console.error);
+
     return (
         <>
             <div className="dashboard">

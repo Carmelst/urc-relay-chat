@@ -1,6 +1,6 @@
 import {getConnecterUser, triggerNotConnected} from "../lib/session.js";
 import { Redis } from '@upstash/redis';
-import PushNotifications from "@pusher/push-notifications-server";
+import {pushNotificationToRoom, pushNotificationToUSer} from "../src/app/notification-service";
 
 const redis = Redis.fromEnv();
 
@@ -30,32 +30,15 @@ export default async function handler(request, response) {
             if (selectedRoom === "0") {
                 const key = generateKey(message.senderId, message.receiverId);
                 result = await redis.lpush(`${key}`, newMessage );
+                await pushNotificationToUSer(message.receiverId, user.username, message);
             }
             else{
                 result = await redis.lpush(`${message.receiverId}`, newMessage);
+                await pushNotificationToRoom(user.username, message);
             }
 
-            const beamsClient = new PushNotifications({
-                    instanceId: process.env.PUSHER_INSTANCE_ID,
-                    secretKey: process.env.PUSHER_SECRET_KEY,
-            });
-           await beamsClient.publishToUsers([message.receiverId], {
-                    web: {
-                        notification: {
-                            title: `New Message from ${user.username}`,
-                            body: message.content.toString(),
-                            ico: "https://www.univ-brest.fr/themes/custom/ubo_parent/favicon.ico",
-                        },
-                        data: {
-                            message: {
-                                content : message.content.toString(),
-                                senderId: message.senderId,
-                                receiverId: message.receiverId,
-                                date: message.date.toString(),
-                            }
-                        }
-                    },
-           });
+
+
            response.send({result : result , message : "Message sent"});
         }
     } catch (error) {
