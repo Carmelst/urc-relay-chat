@@ -2,6 +2,12 @@
     border: 1px solid white;
     border-radius: 5px;
     font-weight: bold;
+    display: flex;
+    flex-direction: row;
+}
+
+.Navbar Button *{
+    margin-right: 5px;
 }
 
 .Navbar Button:hover{

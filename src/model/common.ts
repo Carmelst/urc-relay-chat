@@ -37,6 +37,7 @@ export interface Message {
     senderId: string;
     receiverId: string;
     date: string;
+    media? : string;
 }
 
 export interface EmptyCallback {

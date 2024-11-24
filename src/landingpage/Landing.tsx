@@ -19,8 +19,7 @@ export function Landing() {
           <Stack mt="6" spacing="3">
             <Heading size="lg" textAlign='center'>UBO Relay Chat App</Heading>
             <Text>
-              UBO Relay Chat Une messagerie sécurisée, intelligente et facile à utiliser.
-              Gérez votre boîte de réception plus rapidement, chez vous et partout où vous allez. 
+              UBO Relay Chat Secure, intelligent and easy-to-use messaging. Manage your inbox faster, at home and wherever you go.
             </Text>
           </Stack>
         </CardBody>

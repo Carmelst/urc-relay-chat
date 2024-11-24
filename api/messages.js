@@ -1,6 +1,6 @@
 import {getConnecterUser, triggerNotConnected} from "../lib/session.js";
 import { Redis } from '@upstash/redis';
-import {generateKey} from "./message.js";
+import {generateKey} from "./messageWithoutMedia.js";
 // const PushNotifications = require("@pusher/push-notifications-server");
 
 const redis = Redis.fromEnv();

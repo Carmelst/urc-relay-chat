@@ -3,6 +3,9 @@ import { Box, Flex, Button, Spacer, Heading } from "@chakra-ui/react";
 import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {disconnect} from "../app/userSlice";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faRightFromBracket, faRightToBracket, faUserPlus} from "@fortawesome/free-solid-svg-icons";
+
 
 export function Navbar() {
     const { token, username } = useSelector((state) => state.user);
@@ -21,9 +24,11 @@ export function Navbar() {
                 {
                     token ?
                         <>
-                            <Heading size="lg">Bienvenue {username}</Heading>
+                            <Heading size="lg">Welcome {username}</Heading>
+                            <Spacer/>
                             <Link to="/">
                                 <Button variant="ghost" colorScheme="white" mx="3" size="md" letterSpacing="0.5px" onClick={handleLogout}>
+                                    <FontAwesomeIcon icon={faRightFromBracket} />
                                     Log out
                                 </Button>
                             </Link>
@@ -32,11 +37,13 @@ export function Navbar() {
                         <>
                             <Link to="/login">
                                 <Button variant="ghost" colorScheme="white" mx="3" size="md" letterSpacing="0.5px">
+                                    <FontAwesomeIcon icon={faRightToBracket} />
                                     Login
                                 </Button>
                             </Link>
                             <Link to="/register">
                                 <Button variant="ghost" colorScheme="white" mx="3" size="md" letterSpacing="0.5px">
+                                    <FontAwesomeIcon icon={faUserPlus} />
                                     Register
                                 </Button>
                             </Link>

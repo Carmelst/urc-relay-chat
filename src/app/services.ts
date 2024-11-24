@@ -35,7 +35,7 @@ export async function saveUser(newUser: Account) {
 }
 
 export async function sendMessage(message: Message, token: string) {
-    const response = await fetch("/api/message",
+    const response = await fetch("/api/messageWithoutMedia",
         {
             method: "POST",
             headers: {
@@ -52,6 +52,29 @@ export async function sendMessage(message: Message, token: string) {
     }
 }
 
+export async function sendMessageWithMedia(file: File, token: string) {
+    if (!file) {
+        console.error("No file provided");
+        return;
+    }
+    const formData = new FormData();
+    formData.append('file', file); // Add the file to FormData
+
+    const response = await fetch(`/api/messageWithMedia?filename=${file.name}`, {
+        method: "POST",
+        headers: {
+            "Authentication": `Bearer ${token}`,
+        },
+        body: formData,
+    });
+
+    if (response.ok) {
+        const result = await response.json();
+        return result.fileUrl; // Return the URL of the uploaded file
+    } else {
+        return await response.json() as CustomError; // Return the error response if not ok
+    }
+}
 export async function getMessages(senderId: string, receiverId: string, token: string) {
     const response = await fetch("/api/messages",
         {
