@@ -27,6 +27,10 @@
     align-items: center; /* Center the buttons vertically */
 
 }
+.dashboard-navbar-header Button *{
+    margin-right: 7px;
+}
+
 
 /* Button styling inside the navbar */
 .dashboard-navbar-header button {

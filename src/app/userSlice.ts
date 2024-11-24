@@ -8,7 +8,7 @@ export const getUsersAsync = createAsyncThunk(
     'user/getUsers',
     async (token: string) => {
         try {
-            console.log('appel api users');
+            //console.log('appel api users');
             return await getUsers(token);
         }
         catch (error) {
@@ -22,7 +22,7 @@ export const getRoomsAsync = createAsyncThunk(
     'user/getRooms',
     async (token :string) => {
         try {
-            console.log('appel api rooms');
+            //console.log('appel api rooms');
             return await getRooms(token);
         }
         catch (error) {
@@ -36,7 +36,7 @@ export const getMessagesAsync = createAsyncThunk(
     'user/getMessages',
     async ({senderId, receiverId, token, selectedRoom} : {senderId : string, receiverId : string, token : string , selectedRoom : string}) => {
         try {
-            console.log('appel api messages');
+            //console.log('appel api messages');
             return await getMessages(senderId, receiverId, token, selectedRoom);
         }
         catch (error) {
