@@ -13,7 +13,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {sendMessage, sendMessageWithMedia} from "../../app/services";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/store";
-import {saveMessage, selectRoom} from "../../app/userSlice";
+import {saveMessage} from "../../app/userSlice";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFileImage, faPaperPlane} from "@fortawesome/free-solid-svg-icons";
 import {Message} from "../../model/common";
