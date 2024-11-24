@@ -5,7 +5,6 @@ import {Message} from "../../model/common";
 
 export const MessageBullet = () => {
         const { externalId, messages} = useSelector((state: RootState) => state.user);
-        console.log(messages);
         return (
             <div className="discussion">
                     {

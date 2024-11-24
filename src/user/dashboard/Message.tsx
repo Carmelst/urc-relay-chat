@@ -56,10 +56,8 @@ export const Message = () => {
                 console.log(response) ;
                 const newMessage = {content: message, senderId: externalId, receiverId: selectedDiscussionId, date : new Date().toLocaleString(), media : response as string};
                 sendMessage(newMessage, token)
-                    .then((response) => {console.log(response); })
-                    .catch((error) => {console.log(error); });
-                setSavingMedia(false);
-
+                    .then((response) => {console.log(response); dispatch(saveMessage(newMessage)) ;setSavingMedia(false) })
+                    .catch((error) => {console.log(error); setSavingMedia(false) });
             })
             .catch((error) => {console.log(error); setSavingMedia(false);});
 

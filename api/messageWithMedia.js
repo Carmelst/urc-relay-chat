@@ -12,29 +12,15 @@ export default async function handler(request, response) {
             console.log('user not connected');
             return triggerNotConnected(response);
         }
-        await upload.single('file')(request, response, async (err) => {
-            if (err) {
-                return response.status(400).json({ error: 'File upload failed', message: err.message });
-            }
+        const { searchParams } = new URL(request.url);
+        const filename = searchParams.get('filename');
 
-            const fileData = request.file?.buffer; // Get the file's binary data
-            const filename = request.file?.originalname || 'default_filename.jpeg';
 
-            if (!fileData) {
-                return response.status(400).json({ error: 'No file data found.' });
-            }
-
-            try {
-                // Upload file to Vercel Blob
-                const blob = await put(filename, fileData, { access: 'public' });
-                const fileUrl = blob.url;
-                return response.status(200).json({ fileUrl });
-            } catch (error) {
-                console.error(error);
-                return response.status(500).json({ error: 'Failed to upload the file.' });
-            }
+        const blob = await put(filename, request.body, {
+            access: 'public',
         });
-
+        const fileUrl = blob.url;
+        return response.json({ fileUrl})
     } catch (error) {
         console.log(error);
         response.status(500).json(error);
