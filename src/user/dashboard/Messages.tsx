@@ -95,10 +95,14 @@ export const Messages = () => {
         }
     }
 
-    useEffect(() => {
+    const scrollToRecentMessage = () => {
         if (conversationRef.current) {
             conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
         }
+    }
+
+    useEffect(() => {
+        scrollToRecentMessage();
     }, [messages]);
 
     return (
