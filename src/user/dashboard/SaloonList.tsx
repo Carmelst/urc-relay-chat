@@ -5,14 +5,14 @@ import './UserList.css';
 import React, {useEffect, useState} from "react";
 import {
     getMessagesAsync,
-    getRoomsAsync,
+    getRoomsAsync, saveMessage,
     selectRoom
 } from "../../app/userSlice";
-import { useParams} from "react-router-dom";
+import {Message} from "../../model/common";
 
 
 export const SaloonList = () => {
-    const { room_id } = useParams();
+    //const { room_id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
     const { rooms, token, externalId} = useSelector((state:RootState) => state.user);
     const [selectedRoom, setSelectedRoom] = useState("0");
@@ -27,11 +27,27 @@ export const SaloonList = () => {
 
     useEffect(() => {
         if (rooms.length === 0) dispatch(getRoomsAsync(token as string));
-        if (room_id){
-            String(room_id);
-            handleSelectedRoom(room_id);
-        }
+        // if (room_id){
+        //     String(room_id);
+        //     handleSelectedRoom(room_id);
+        // }
     }, [])
+
+    const sw = navigator.serviceWorker;
+    if (sw != null) {
+        sw.onmessage = (event) => {
+            const {message} : {message : Message}= event.data;
+            if (selectedRoom === message.receiverId && message.senderId !== externalId) {
+                dispatch(saveMessage(message));
+            }
+            else {
+                setSelectedRoom(message.receiverId);
+                dispatch(selectRoom(message.receiverId));
+                dispatch(getMessagesAsync({senderId : message.senderId, receiverId : message.receiverId , token, selectedRoom : message.receiverId}))
+            }
+
+        }
+    }
 
     return (
         <div className="userlist">

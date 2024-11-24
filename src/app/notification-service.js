@@ -1,9 +1,8 @@
 import PushNotifications from "@pusher/push-notifications-server";
-import {Message} from "../model/common";
 
 
 
-export const pushNotificationToUSer = async (externalId : string, senderName: string, message : Message) => {
+export const pushNotificationToUSer = async (externalId, senderName, message) => {
     const beamsClient = new PushNotifications({
         instanceId: process.env.PUSHER_INSTANCE_ID || '',
         secretKey: process.env.PUSHER_SECRET_KEY || '',
@@ -27,7 +26,7 @@ export const pushNotificationToUSer = async (externalId : string, senderName: st
     });
 }
 
-export const pushNotificationToRoom = async (senderName: string, message : Message) => {
+export const pushNotificationToRoom = async (senderName, message) => {
     const beamsClient = new PushNotifications({
         instanceId: process.env.PUSHER_INSTANCE_ID || '',
         secretKey: process.env.PUSHER_SECRET_KEY || '',

@@ -45,14 +45,14 @@ export const Messages = () => {
         if (showRoomMessage){
             console.log("sending showroom message");
             newMessage = { content : message, senderId: externalId, receiverId: selectedRoomId.toString(), date : new Date().toLocaleString()};
-            console.log(newMessage);
+            //console.log(newMessage);
             sendMessage(newMessage, selectedRoomId.toString(), token)
                 .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(newMessage)) ;setLoading(false);})
                 .catch((error) => {console.log(error); setLoading(false);});
         }
         else{
             console.log("sending user message");
-            console.log(newMessage);
+            //console.log(newMessage);
             newMessage = { content : message, senderId: externalId, receiverId: selectedDiscussionId , date : new Date().toLocaleString()};
             sendMessage(newMessage, "0", token)
                 .then((response) => {console.log(response); setMessage(""); dispatch(saveMessage(newMessage)) ;setLoading(false);})
